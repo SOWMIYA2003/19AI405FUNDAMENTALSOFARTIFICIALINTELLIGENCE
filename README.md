@@ -269,11 +269,8 @@ iV) if a node with the same position as
 end (for loop)
 
     e) push q on the closed list end (while loop)
-
-
 ## Sample Graph 1 :
-
-
+![a](https://github.com/SOWMIYA2003/19AI405FUNDAMENTALSOFARTIFICIALINTELLIGENCE/assets/93427443/89d78c1b-94a4-4129-acfa-cb471974709a)
 ## Program :
 ```
 from collections import defaultdict
@@ -372,8 +369,7 @@ aStarAlgo('A', 'J')
 
 
 ## Sample Graph 2 :
-
-
+![b](https://github.com/SOWMIYA2003/19AI405FUNDAMENTALSOFARTIFICIALINTELLIGENCE/assets/93427443/c8ab6f57-e07f-4f55-b419-836b2e8b76c2)
 ## Program :
 ```
 from collections import defaultdict
