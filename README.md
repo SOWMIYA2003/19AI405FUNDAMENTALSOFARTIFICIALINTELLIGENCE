@@ -71,14 +71,41 @@ for i in range(e):
     graph[u].append(v)
     graph[v].append(u)
 #print(graph)
-start='A'
+start='A' 
 visited=defaultdict(bool)
 path=[]
 traversedpath=dfs(graph,start,visited,path)
 print(traversedpath)
 ```
-## Output :
+## Output 1 :
 ![image](https://github.com/SOWMIYA2003/ExpNo-1-Implement-Depth-First-Search-Traversal-of-a-Graph/assets/93427443/32d454ac-fbd4-46cf-ba8a-884659c7184e)
+## Program :
+```
+#import defaultdict
+from collections import defaultdict
+def dfs(graph,start,visited,path):
+    path.append(start)
+    visited[start]=True
+    for neighbour in graph[start]:
+        if visited[neighbour]==False:
+            dfs(graph,neighbour,visited,path)
+            visited[neighbour]=True
+    return path
+graph=defaultdict(list)
+n,e=map(int,input().split())
+for i in range(e):
+    u,v=map(str,input().split())
+    graph[u].append(v)
+    graph[v].append(u)
+#print(graph)
+start='0'   # The starting node is 0
+visited=defaultdict(bool)
+path=[]
+traversedpath=dfs(graph,start,visited,path)
+print(traversedpath)
+```
+## Output 2 :
+![image](https://github.com/SOWMIYA2003/19AI405FUNDAMENTALSOFARTIFICIALINTELLIGENCE/assets/93427443/ee6875bd-9afe-4736-b15d-51759cbfe939)
 
 ## Result:
 Thus,a Graph was constructed and implementation of Depth First Search for the same graph was done
