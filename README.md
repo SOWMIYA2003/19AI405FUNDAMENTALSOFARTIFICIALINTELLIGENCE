@@ -71,6 +71,7 @@ traversedpath=dfs(graph,start,visited,path)
 print(traversedpath)
 ```
 ## Output 1 :
+![2](https://github.com/SOWMIYA2003/19AI405FUNDAMENTALSOFARTIFICIALINTELLIGENCE/assets/93427443/53339829-8fd8-443d-9aaa-b1ad20fe5c92)
 
 ## Program :
 ```
@@ -98,7 +99,7 @@ traversedpath=dfs(graph,start,visited,path)
 print(traversedpath)
 ```
 ## Output 2 :
-
+![1](https://github.com/SOWMIYA2003/19AI405FUNDAMENTALSOFARTIFICIALINTELLIGENCE/assets/93427443/edb4d751-d08e-4352-8794-7e20216a8ed0)
 
 ## Result:
 Thus,a Graph was constructed and implementation of Depth First Search for the same graph was done
