@@ -1,26 +1,18 @@
 # 19AI405 FUNDAMENTALS OF ARTIFICIALINTELLIGENCE 
 # Laboratory Experiments
-
 # ExpNo-1-Implement-Depth-First-Search-Traversal-of-a-Graph
 ## Name : Sowmiya N
-## Register No : 212221230106
-
- 
-
+## Register No : 212221230106 
 ## Aim:
 To Implement Depth First Search Traversal of a Graph using Python 3.
-
 ## Theory:
 Depth First Traversal (or DFS) for a graph is like Depth First Traversal of a tree. The only catch here is that, unlike trees, graphs may contain cycles (a node may be visited twice). Use a Boolean visited array to avoid processing a node more than once. A graph can have more than one DFS traversal. Depth-first search is an algorithm for traversing or searching trees or graph data structures. The algorithm starts at the root node (selecting some arbitrary node as the root node in the case of a graph) and explores as far as possible along each branch before backtracking. Step 1: Initially, stack and visited arrays are empty. 
 
 ![1](https://github.com/SOWMIYA2003/19AI405FUNDAMENTALSOFARTIFICIALINTELLIGENCE/assets/93427443/ec36377a-fd59-440f-a1d8-0cf79166881c)
 
-
-
 Queue and visited arrays are empty initially. Stack and visited arrays are empty initially. Step 2: Visit 0 and put its adjacent nodes which are not visited yet into the stack. 
 
 ![2](https://github.com/SOWMIYA2003/19AI405FUNDAMENTALSOFARTIFICIALINTELLIGENCE/assets/93427443/e0e00295-7ba2-4446-9157-265e4f17be84)
-
 
 Visit node 0 and put its adjacent nodes (1, 2, 3) into the stack Visit node 0 and put its adjacent nodes (1, 2, 3) into the stack
 
@@ -28,18 +20,15 @@ Step 3: Now, Node 1 at the top of the stack, so visit node 1 and pop it from the
 
 ![3](https://github.com/SOWMIYA2003/19AI405FUNDAMENTALSOFARTIFICIALINTELLIGENCE/assets/93427443/73256a0b-c786-4805-b1dd-6f14c66075ad)
 
-
 Visit node 1 Visit node 1
 
 Step 4: Now, Node 2 at the top of the stack, so visit node 2 and pop it from the stack and put all of its adjacent nodes which are not visited (i.e, 3, 4) in the stack. 
 ![4](https://github.com/SOWMIYA2003/19AI405FUNDAMENTALSOFARTIFICIALINTELLIGENCE/assets/93427443/4d520ff1-f156-4657-bc95-dd2115f629b4)
 
-
 Visit node 2 and put its unvisited adjacent nodes (3, 4) into the stack Visit node 2 and put its unvisited adjacent nodes (3, 4) into the stack
 
 Step 5: Now, Node 4 at the top of the stack, so visit node 4 and pop it from the stack and put all of its adjacent nodes which are not visited in the stack. 
 ![5](https://github.com/SOWMIYA2003/19AI405FUNDAMENTALSOFARTIFICIALINTELLIGENCE/assets/93427443/53da0a21-41b7-415a-9525-6abb61f128d9)
-
 
 Visit node 4 Visit node 4
 
@@ -82,7 +71,7 @@ traversedpath=dfs(graph,start,visited,path)
 print(traversedpath)
 ```
 ## Output 1 :
-![image](https://github.com/SOWMIYA2003/ExpNo-1-Implement-Depth-First-Search-Traversal-of-a-Graph/assets/93427443/32d454ac-fbd4-46cf-ba8a-884659c7184e)
+
 ## Program :
 ```
 #import defaultdict
@@ -109,7 +98,7 @@ traversedpath=dfs(graph,start,visited,path)
 print(traversedpath)
 ```
 ## Output 2 :
-![image](https://github.com/SOWMIYA2003/19AI405FUNDAMENTALSOFARTIFICIALINTELLIGENCE/assets/93427443/ee6875bd-9afe-4736-b15d-51759cbfe939)
+
 
 ## Result:
 Thus,a Graph was constructed and implementation of Depth First Search for the same graph was done
@@ -118,9 +107,7 @@ Thus,a Graph was constructed and implementation of Depth First Search for the sa
 # ExpNo 2 : Implement Breadth First Search Traversal of a Graph
 ## Name : Sowmiya N
 ## Register No : 212221230106
-
 ## Aim:
-
 To Implement Breadth First Search Traversal of a Graph using Python 3.
 ## Theory:
 
@@ -133,33 +120,26 @@ A Boolean visited array is used to mark the visited vertices. For simplicity, it
 
 ### How does BFS work?
 Starting from the root, all the nodes at a particular level are visited first, and then the next level nodes are traversed until all the nodes are visited. To do this, a queue is used. All the adjacent unvisited nodes of the current level are pushed into the queue, and the current-level nodes are marked visited and popped from the queue. Illustration: Let us understand the working of the algorithm with the help of the following example. Step1: Initially queue and visited arrays are empty. 
-![277148319-8acdebf8-ecc2-4d10-a208-45cce441f059](https://github.com/SOWMIYA2003/ExpNo-1-Implement-Depth-First-Search-Traversal-of-a-Graph/assets/93427443/08741553-9b8b-4f1d-a697-606914149871)
+
+![1](https://github.com/SOWMIYA2003/19AI405FUNDAMENTALSOFARTIFICIALINTELLIGENCE/assets/93427443/dfa18c8b-fd94-4e34-a047-39606c532862)
 
 Queue and visited arrays are empty initially. Step2: Push node 0 into queue and mark it visited.
-
-![277148352-0e9ce012-8e1f-43d7-b7b9-c0fb19fe0c3f](https://github.com/SOWMIYA2003/ExpNo-1-Implement-Depth-First-Search-Traversal-of-a-Graph/assets/93427443/9a2361f0-76ed-44b2-978b-eded12605407)
+![2](https://github.com/SOWMIYA2003/19AI405FUNDAMENTALSOFARTIFICIALINTELLIGENCE/assets/93427443/b51a83b2-10b6-4480-8657-428918ea2a60)
 
 Push node 0 into queue and mark it visited. Step 3: Remove node 0 from the front of queue and visit the unvisited neighbours and push them into queue.
-
-![277148379-67d8fa3b-ce9e-46c2-9dd7-089e204e667a](https://github.com/SOWMIYA2003/ExpNo-1-Implement-Depth-First-Search-Traversal-of-a-Graph/assets/93427443/cf1224e2-f711-4163-ae8c-33335a02d14f)
-
+![3](https://github.com/SOWMIYA2003/19AI405FUNDAMENTALSOFARTIFICIALINTELLIGENCE/assets/93427443/804b554a-f54f-4a3f-9424-855de0b3627f)
 
 Step 4: Remove node 1 from the front of queue and visit the unvisited neighbours and push them into queue.
-
-![277148430-b0cf0fde-8a86-41cb-a054-36875ac24ab0](https://github.com/SOWMIYA2003/ExpNo-1-Implement-Depth-First-Search-Traversal-of-a-Graph/assets/93427443/49d596da-60ed-4961-bf03-d2a4db00542b)
+![4](https://github.com/SOWMIYA2003/19AI405FUNDAMENTALSOFARTIFICIALINTELLIGENCE/assets/93427443/ac08a2a5-0020-4c52-941d-0600873fe911)
 
 Step 5: Remove node 2 from the front of queue and visit the unvisited neighbours and push them into queue.
-
-![277148459-8968a163-6b3a-4f7e-8ad4-bbf24f326b9b](https://github.com/SOWMIYA2003/ExpNo-1-Implement-Depth-First-Search-Traversal-of-a-Graph/assets/93427443/ec57922f-9fa4-4d6c-a798-26c023b7d095)
+![5](https://github.com/SOWMIYA2003/19AI405FUNDAMENTALSOFARTIFICIALINTELLIGENCE/assets/93427443/07620032-42c7-49bb-8734-e8d721a77404)
 
 Step 6: Remove node 3 from the front of queue and visit the unvisited neighbours and push them into queue. As we can see that every neighbours of node 3 is visited, so move to the next node that are in the front of the queue.
-
-![277148500-7a1c1b16-ea69-497f-a099-8440200f6dc0](https://github.com/SOWMIYA2003/ExpNo-1-Implement-Depth-First-Search-Traversal-of-a-Graph/assets/93427443/31a4abe5-2ec8-4b13-a821-5bff394d488e)
+![6](https://github.com/SOWMIYA2003/19AI405FUNDAMENTALSOFARTIFICIALINTELLIGENCE/assets/93427443/33b23be7-1296-4fe9-89bc-e2a309c7ddb8)
 
 Steps 7: Remove node 4 from the front of queue and visit the unvisited neighbours and push them into queue. As we can see that every neighbours of node 4 are visited, so move to the next node that is in the front of the queue.
-
-![277148529-8e16ffa3-c3d6-4774-822b-6eb84adedad9](https://github.com/SOWMIYA2003/ExpNo-1-Implement-Depth-First-Search-Traversal-of-a-Graph/assets/93427443/55b2ded8-9f49-4424-811c-1439ad165783)
-
+![7](https://github.com/SOWMIYA2003/19AI405FUNDAMENTALSOFARTIFICIALINTELLIGENCE/assets/93427443/edb350f4-a608-45e7-9043-8091360ffea5)
 Remove node 4 from the front of queue and visit the unvisited neighbours and push them into queue. Now, Queue becomes empty, So, terminate these process of iteration.
 
 ## Algorithm:
@@ -204,7 +184,7 @@ traversedpath = bfs(graph,start,visited,path)
 print(traversedpath)
 ```
 ## Output 1:
-![image](https://github.com/SOWMIYA2003/19AI405FUNDAMENTALSOFARTIFICIALINTELLIGENCE/assets/93427443/0816173e-4d9c-4c1d-85cc-d84319cdf18d)
+
 
 ## Program :
 ```
@@ -238,7 +218,7 @@ traversedpath = bfs(graph,start,visited,path)
 print(traversedpath)
 ```
 ## Output 2 :
-![image](https://github.com/SOWMIYA2003/ExpNo-1-Implement-Depth-First-Search-Traversal-of-a-Graph/assets/93427443/421bf2bd-42ac-4760-87a7-3d1bc9ef3028)
+
 
 ## Result:
 
@@ -292,7 +272,7 @@ end (for loop)
 
 
 ## Sample Graph 1 :
-![277151990-b1377c3f-011a-4c0f-a843-516842ae056a](https://github.com/SOWMIYA2003/19AI405FUNDAMENTALSOFARTIFICIALINTELLIGENCE/assets/93427443/73dbd893-ef4e-4b76-b7d4-9139bb30e014)
+
 
 ## Program :
 ```
@@ -388,11 +368,11 @@ aStarAlgo('A', 'J')
 
 ```
 ## Output 1:
-![image](https://github.com/SOWMIYA2003/19AI405FUNDAMENTALSOFARTIFICIALINTELLIGENCE/assets/93427443/1890dce7-cdef-492c-9126-0e7c6a9a843a)
+
 
 
 ## Sample Graph 2 :
-![277152712-acbb09cb-ed39-48e5-a59b-2f8d61b978a3](https://github.com/SOWMIYA2003/ExpNo-1-Implement-Depth-First-Search-Traversal-of-a-Graph/assets/93427443/1f77c3dc-487e-46ad-967c-ae33cc42942c)
+
 
 ## Program :
 ```
@@ -500,7 +480,6 @@ print(graph)
 aStarAlgo('A', 'G')
 ```
 ## Output 2:
-![image](https://github.com/SOWMIYA2003/ExpNo-1-Implement-Depth-First-Search-Traversal-of-a-Graph/assets/93427443/24c8f868-9e5e-4851-8e9d-74955efad2c5)
 
 ## Result :
 Thus the implementation of A* Search algorithm is done successfully.
@@ -577,9 +556,7 @@ def SimpleHillClimbing():
 SimpleHillClimbing()
 ```
 ## Output :
-![image](https://github.com/SOWMIYA2003/19AI405FUNDAMENTALSOFARTIFICIALINTELLIGENCE-/assets/93427443/6bbb11b5-1448-4709-8a03-11d0b00fc941)
 
-![image](https://github.com/SOWMIYA2003/19AI405FUNDAMENTALSOFARTIFICIALINTELLIGENCE-/assets/93427443/a6324832-7a8f-48ce-9e7f-4b19d2a3e082)
 
 ## Result :
 
