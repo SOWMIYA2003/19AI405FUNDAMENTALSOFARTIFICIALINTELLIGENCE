@@ -171,6 +171,41 @@ Remove node 4 from the front of queue and visit the unvisited neighbours and pus
 ```
 from collections import deque
 from collections import defaultdict
+
+def bfs(graph,start,visited,path):
+    queue = deque()
+    path.append(start)
+    queue.append(start)
+    visited[start] = True
+    while len(queue) != 0:
+        tmpnode = queue.popleft()
+        for neighbour in graph[tmpnode]:
+            if visited[neighbour] == False:
+                path.append(neighbour)
+                queue.append(neighbour)
+                visited[neighbour] = True
+    return path
+
+graph = defaultdict(list)
+v,e = map(int,input().split())
+for i in range(e):
+    u,v = map(str,input().split())
+    graph[u].append(v)
+    graph[v].append(u)
+
+start = 'A'
+path = []
+visited = defaultdict(bool)
+traversedpath = bfs(graph,start,visited,path)
+print(traversedpath)
+```
+## Output 1:
+![image](https://github.com/SOWMIYA2003/19AI405FUNDAMENTALSOFARTIFICIALINTELLIGENCE/assets/93427443/0816173e-4d9c-4c1d-85cc-d84319cdf18d)
+
+## Program :
+```
+from collections import deque
+from collections import defaultdict
 def bfs(graph,start,visited,path):
     queue = deque()
     path.append(start)
@@ -198,7 +233,7 @@ visited = defaultdict(bool)
 traversedpath = bfs(graph,start,visited,path)
 print(traversedpath)
 ```
-## Output :
+## Output 2 :
 ![image](https://github.com/SOWMIYA2003/ExpNo-1-Implement-Depth-First-Search-Traversal-of-a-Graph/assets/93427443/421bf2bd-42ac-4760-87a7-3d1bc9ef3028)
 
 ## Result:
