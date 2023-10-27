@@ -563,14 +563,234 @@ SimpleHillClimbing()
 
 Thus the Implementation of Simple Hill Climbing Algorithm and Generating a String by Mutating a Single Character at each iteration is done successfully.
 
+# ExpNo 5 : Implement Minimax Search Algorithm for a Simple TIC-TAC-TOE game
+
+## Name : Sowmiya N
+## Register No : 212221230106
+
+## Aim:
+
+Implement Minimax Search Algorithm for a Simple TIC-TAC-TOE game
+## Theory and Procedure:
+To begin, let's start by defining what it means to play a perfect game of tic tac toe:
+
+If I play perfectly, every time I play I will either win the game, or I will draw the game. Furthermore if I play against another perfect player, I will always draw the game.
+
+How might we describe these situations quantitatively? Let's assign a score to the "end game conditions:"
+
+I win, hurray! I get 10 points! I lose, shit. I lose 10 points (because the other player gets 10 points) I draw, whatever. I get zero points, nobody gets any points. So now we have a situation where we can determine a possible score for any game end state.
+
+Looking at a Brief Example To apply this, let's take an example from near the end of a game, where it is my turn. I am X. My goal here, obviously, is to maximize my end game score.
+
+![1](https://github.com/SOWMIYA2003/19AI405FUNDAMENTALSOFARTIFICIALINTELLIGENCE/assets/93427443/09944f56-1860-451b-a475-c769ab70e5df)
 
 
+If the top of this image represents the state of the game I see when it is my turn, then I have some choices to make, there are three places I can play, one of which clearly results in me wining and earning the 10 points. If I don't make that move, O could very easily win. And I don't want O to win, so my goal here, as the first player, should be to pick the maximum scoring move.
+
+But What About O? What do we know about O? Well we should assume that O is also playing to win this game, but relative to us, the first player, O wants obviously wants to chose the move that results in the worst score for us, it wants to pick a move that would minimize our ultimate score. Let's look at things from O's perspective, starting with the two other game states from above in which we don't immediately win:
+![2](https://github.com/SOWMIYA2003/19AI405FUNDAMENTALSOFARTIFICIALINTELLIGENCE/assets/93427443/3e5dcbfd-5e83-4406-ba1c-8c2d1ffdfcbb)
 
 
+The choice is clear, O would pick any of the moves that result in a score of -10.
+
+Describing Minimax The key to the Minimax algorithm is a back and forth between the two players, where the player whose "turn it is" desires to pick the move with the maximum score. In turn, the scores for each of the available moves are determined by the opposing player deciding which of its available moves has the minimum score. And the scores for the opposing players moves are again determined by the turn-taking player trying to maximize its score and so on all the way down the move tree to an end state.
+
+A description for the algorithm, assuming X is the "turn taking player," would look something like:
+
+If the game is over, return the score from X's perspective. Otherwise get a list of new game states for every possible move Create a scores list For each of these states add the minimax result of that state to the scores list If it's X's turn, return the maximum score from the scores list If it's O's turn, return the minimum score from the scores list You'll notice that this algorithm is recursive, it flips back and forth between the players until a final score is found.
+
+Let's walk through the algorithm's execution with the full move tree, and show why, algorithmically, the instant winning move will be picked:
 
 
+![3](https://github.com/SOWMIYA2003/19AI405FUNDAMENTALSOFARTIFICIALINTELLIGENCE/assets/93427443/c8eb6f56-e070-4c76-80ae-78d3c54f86a5)
+
+It's X's turn in state 1. X generates the states 2, 3, and 4 and calls minimax on those states.
+
+State 2 pushes the score of +10 to state 1's score list, because the game is in an end state.
+
+State 3 and 4 are not in end states, so 3 generates states 5 and 6 and calls minimax on them, while state 4 generates states 7 and 8 and calls minimax on them.
+
+State 5 pushes a score of -10 onto state 3's score list, while the same happens for state 7 which pushes a score of -10 onto state 4's score list.
+
+State 6 and 8 generate the only available moves, which are end states, and so both of them add the score of +10 to the move lists of states 3 and 4.
+
+Because it is O's turn in both state 3 and 4, O will seek to find the minimum score, and given the choice between -10 and +10, both states 3 and 4 will yield -10.
+
+>Finally the score list for states 2, 3, and 4 are populated with +10, -10 and -10 respectively, and state 1 seeking to maximize the score will chose the winning move with score +10, state 2.
+
+##A Coded Version of Minimax Hopefully by now you have a rough sense of how th e minimax algorithm determines the best move to play. Let's examine my implementation of the algorithm to solidify the understanding:
+
+Here is the function for scoring the game:
+
+### @player is the turn taking player
+
+def score(game) if game.win?(@player) return 10 elsif game.win?(@opponent) return -10 else return 0 end end Simple enough, return +10 if the current player wins the game, -10 if the other player wins and 0 for a draw. You will note that who the player is doesn't matter. X or O is irrelevant, only who's turn it happens to be.
+
+And now the actual minimax algorithm; note that in this implementation a choice or move is simply a row / column address on the board, for example [0,2] is the top right square on a 3x3 board.
+
+def minimax(game) return score(game) if game.over? scores = [] # an array of scores moves = [] # an array of moves
+```
+# Populate the scores array, recursing as needed
+game.get_available_moves.each do |move|
+    possible_game = game.get_new_state(move)
+    scores.push minimax(possible_game)
+    moves.push move
+end
+
+# Do the min or the max calculation
+if game.active_turn == @player
+    # This is the max calculation
+    max_score_index = scores.each_with_index.max[1]
+    @choice = moves[max_score_index]
+    return scores[max_score_index]
+else
+    # This is the min calculation
+    min_score_index = scores.each_with_index.min[1]
+    @choice = moves[min_score_index]
+    return scores[min_score_index]
+end
+```
+end
+
+## Program :
+## Output : 
+## Result :
+Thus,Implementation of Minimax Search Algorithm for a Simple TIC-TAC-TOE game wasa done successfully.
+
+# ExpNo 6 : Implement Alpha-beta pruning of Minimax Search Algorithm for a Simple TIC-TAC-TOE game
+## Name : Sowmiya N
+## Register No : 212221230106
 
 
+## Aim:
+
+Implement Alpha-beta pruning of Minimax Search Algorithm for a Simple TIC-TAC-TOE game
+## GOALS of Alpha-Beta Pruning in MiniMax Search Algorithm
+Improve the decision-making efficiency of the computer player by reducing the number of evaluated nodes in the game tree.
+Tic-Tac-Toe game implementation incorporating the Alpha-Beta pruning and the Minimax algorithm with Python Code.
+## IMPLEMENTATION
+
+The project involves developing a Tic-Tac-Toe game implementation incorporating the Alpha-Beta pruning with the Minimax algorithm. Using this algorithm, the computer player analyzes the game state, evaluates possible moves, and selects the optimal action based on the anticipated outcomes.
+## The Minimax algorithm
+
+recursively evaluates all possible moves and their potential outcomes, creating a game tree.
+## Alpha-Beta pruning
+
+Alpha–Beta (𝛼−𝛽) algorithm is actually an improved minimax using a heuristic. It stops evaluating a move when it makes sure that it’s worse than a previously examined move. Such moves need not to be evaluated further.
+
+When added to a simple minimax algorithm, it gives the same output but cuts off certain branches that can’t possibly affect the final decision — dramatically improving the performance
+
+
+## Program :
+## Output :
+## Result :
+
+# ExpNo 7 : Solve Cryptarithmetic Problem,a CSP(Constraint Satisfaction Problem) using Python
+## Name : Sowmiya N
+## Register No : 212221230106
+
+## Aim:
+
+To solve Cryptarithmetic Problem,a CSP(Constraint Satisfaction Problem) using Python
+## Procedure: 
+
+Input and Output
+Input: This algorithm will take three words.
+B A S E
+B A L L
+----------
+G A M E S
+
+Output: It will show which letter holds which number from 0 – 9. For this case it is like this.
+
+```
+          B A S E                         2 4 6 1
+          B A L L                         2 4 5 5
+         ---------                       ---------
+        G A M E S                       0 4 9 1 6
+```
+
+Algorithm For this problem, we will define a node, which contains a letter and its corresponding values.
+
+isValid(nodeList, count, word1, word2, word3)
+
+Input − A list of nodes, the number of elements in the node list and three words.
+
+Output − True if the sum of the value for word1 and word2 is same as word3 value.
+
+Begin
+m := 1
+for each letter i from right to left of word1, do
+ch := word1[i]
+for all elements j in the nodeList, do
+if nodeList[j].letter = ch, then
+break
+done
+val1 := val1 + (m * nodeList[j].value)
+m := m * 10
+done
+
+m := 1
+for each letter i from right to left of word2, do
+ch := word2[i]
+for all elements j in the nodeList, do
+if nodeList[j].letter = ch, then
+break
+done
+```
+  val2 := val2 + (m * nodeList[j].value)
+  m := m * 10
+```
+done
+
+m := 1
+for each letter i from right to left of word3, do
+ch := word3[i]
+for all elements j in the nodeList, do
+if nodeList[j].letter = ch, then
+break
+done
+
+```
+  val3 := val3 + (m * nodeList[j].value)
+  m := m * 10
+```
+done
+
+if val3 = (val1 + val2), then
+return true
+return false
+End
+
+## Program :
+```
+```
+## Output :
+
+## Result:
+Thus a Cryptarithmetic Problem was solved using Python successfully
+# ExpNo 8 : Solve Wumpus World Problem using Python demonstrating Inferences from Propositional Logic
+## Name : Sowmiya N
+## Register No : 212221230106
+## Aim:
+To solve Wumpus World Problem using Python demonstrating Inferences from Propositional Logic
+## Problem Description
+## Wumpus World
+The Wumpus world is a simple world example to illustrate the worth of a knowledge-based agent and to represent knowledge representation.
+
+The figure below shows a Wumpus world containing one pit and one Wumpus. There is an agent in room [1,1]. The goal of the agent is to exit the Wumpus world alive. The agent can exit the Wumpus world by reaching room [4,4]. The wumpus world contains exactly one Wumpus and one pit. There will be a breeze in the rooms adjacent to the pit, and there will be a stench in the rooms adjacent to Wumpus.
+![d](https://github.com/SOWMIYA2003/19AI405FUNDAMENTALSOFARTIFICIALINTELLIGENCE/assets/93427443/2c57b40d-6883-4c6b-923f-405a97a15498)
+
+Wumpus World Representation
+
+This is a python program that uses propositional logic sentences to check which rooms are safe.
+
+It is assumed that there will always be a safe path that the agent can take to exit the Wumpus world. The logical agent can take four actions: Up, Down, Left and Right. These actions help the agent move from one room to an adjacent room. The agent can perceive two things: Breeze and Stench.
+## Program :
+```
+```
+## Output :
+## Result :
 
 
 
