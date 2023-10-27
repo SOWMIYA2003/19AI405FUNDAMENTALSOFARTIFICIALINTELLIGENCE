@@ -653,17 +653,211 @@ end
 end
 
 ## Program :
+```
+import time
+
+class Game:
+    def __init__(self):
+        self.initialize_game()
+
+    def initialize_game(self):
+        self.current_state = [['.','.','.'],
+                              ['.','.','.'],
+                              ['.','.','.']]
+
+        # Player X always plays first
+        self.player_turn = 'X'
+
+    def draw_board(self):
+        for i in range(0, 3):
+            for j in range(0, 3):
+                print('{}|'.format(self.current_state[i][j]), end=" ")
+            print()
+        print()
+    def is_valid(self, px, py):
+        if px < 0 or px > 2 or py < 0 or py > 2:
+            return False
+        elif self.current_state[px][py] != '.':
+            return False
+        else:
+            return True
+    def is_end(self):
+    # Vertical win
+        for i in range(0, 3):
+            if (self.current_state[0][i] != '.' and
+                self.current_state[0][i] == self.current_state[1][i] and
+                self.current_state[1][i] == self.current_state[2][i]):
+                return self.current_state[0][i]
+
+        # Horizontal win
+        for i in range(0, 3):
+            if (self.current_state[i] == ['X', 'X', 'X']):
+                return 'X'
+            elif (self.current_state[i] == ['O', 'O', 'O']):
+                return 'O'
+
+    # Main diagonal win
+        if (self.current_state[0][0] != '.' and
+            self.current_state[0][0] == self.current_state[1][1] and
+            self.current_state[0][0] == self.current_state[2][2]):
+            return self.current_state[0][0]
+
+    # Second diagonal win
+        if (self.current_state[0][2] != '.' and
+            self.current_state[0][2] == self.current_state[1][1] and
+            self.current_state[0][2] == self.current_state[2][0]):
+            return self.current_state[0][2]
+
+    # Is the whole board full?
+        for i in range(0, 3):
+            for j in range(0, 3):
+            # There's an empty field, we continue the game
+                if (self.current_state[i][j] == '.'):
+                    return None
+
+    # It's a tie!
+        return '.'
+    def max(self):
+
+        # Possible values for maxv are:
+        # -1 - loss
+        # 0  - a tie
+        # 1  - win
+
+        # We're initially setting it to -2 as worse than the worst case:
+        maxv = -2
+
+        px = None
+        py = None
+
+        result = self.is_end()
+
+        # If the game came to an end, the function needs to return
+        # the evaluation function of the end. That can be:
+        # -1 - loss
+        # 0  - a tie
+        # 1  - win
+        if result == 'X':
+            return (-1, 0, 0)
+        elif result == 'O':
+            return (1, 0, 0)
+        elif result == '.':
+            return (0, 0, 0)
+
+        for i in range(0, 3):
+            for j in range(0, 3):
+                if self.current_state[i][j] == '.':
+                    # On the empty field player 'O' makes a move and calls Min
+                    # That's one branch of the game tree.
+                    self.current_state[i][j] = 'O'
+                    (m, min_i, min_j) = self.min()
+                    # Fixing the maxv value if needed
+                    if m > maxv:
+                        maxv = m
+                        px = i
+                        py = j
+                    # Setting back the field to empty
+                    self.current_state[i][j] = '.'
+        return (maxv, px, py)
+
+    def min(self):
+
+        # Possible values for minv are:
+        # -1 - win
+        # 0  - a tie
+        # 1  - loss
+
+        # We're initially setting it to 2 as worse than the worst case:
+        minv = 2
+
+        qx = None
+        qy = None
+
+        result = self.is_end()
+
+        if result == 'X':
+            return (-1, 0, 0)
+        elif result == 'O':
+            return (1, 0, 0)
+        elif result == '.':
+            return (0, 0, 0)
+
+        for i in range(0, 3):
+            for j in range(0, 3):
+                if self.current_state[i][j] == '.':
+                    self.current_state[i][j] = 'X'
+                    (m, max_i, max_j) = self.max()
+                    if m < minv:
+                        minv = m
+                        qx = i
+                        qy = j
+                    self.current_state[i][j] = '.'
+
+        return (minv, qx, qy)
+    def play(self):
+        while True:
+            self.draw_board()
+            self.result = self.is_end()
+
+            # Printing the appropriate message if the game has ended
+            if self.result != None:
+                if self.result == 'X':
+                    print('The winner is X!')
+                elif self.result == 'O':
+                    print('The winner is O!')
+                elif self.result == '.':
+                    print("It's a tie!")
+
+                self.initialize_game()
+                return
+
+            # If it's player's turn
+            if self.player_turn == 'X':
+
+                while True:
+
+                    start = time.time()
+                    (m, qx, qy) = self.min()
+                    end = time.time()
+                    print('Evaluation time: {}s'.format(round(end - start, 7)))
+                    print('Recommended move: X = {}, Y = {}'.format(qx, qy))
+
+                    px = int(input('Insert the X coordinate: '))
+                    py = int(input('Insert the Y coordinate: '))
+
+                    (qx, qy) = (px, py)
+
+                    if self.is_valid(px, py):
+                        self.current_state[px][py] = 'X'
+                        self.player_turn = 'O'
+                        break
+                    else:
+                        print('The move is not valid! Try again.')
+
+            # If it's AI's turn
+            else:
+                (m, px, py) = self.max()
+                self.current_state[px][py] = 'O'
+                self.player_turn = 'X'
+def main():
+    g = Game()
+    g.play()
+
+if __name__ == "__main__":
+    main()
+```
 ## Output : 
+![b1](https://github.com/SOWMIYA2003/19AI405FUNDAMENTALSOFARTIFICIALINTELLIGENCE/assets/93427443/04a6e1b2-c9a2-4d06-b330-43bbd054df26)
+
+![b2](https://github.com/SOWMIYA2003/19AI405FUNDAMENTALSOFARTIFICIALINTELLIGENCE/assets/93427443/067f8e55-2e4f-48e6-bf13-dcaf01e32b63)
+
 ## Result :
 Thus,Implementation of Minimax Search Algorithm for a Simple TIC-TAC-TOE game wasa done successfully.
 
 # ExpNo 6 : Implement Alpha-beta pruning of Minimax Search Algorithm for a Simple TIC-TAC-TOE game
 ## Name : Sowmiya N
 ## Register No : 212221230106
-
-
 ## Aim:
-
 Implement Alpha-beta pruning of Minimax Search Algorithm for a Simple TIC-TAC-TOE game
 ## GOALS of Alpha-Beta Pruning in MiniMax Search Algorithm
 Improve the decision-making efficiency of the computer player by reducing the number of evaluated nodes in the game tree.
@@ -679,21 +873,203 @@ recursively evaluates all possible moves and their potential outcomes, creating 
 Alpha–Beta (𝛼−𝛽) algorithm is actually an improved minimax using a heuristic. It stops evaluating a move when it makes sure that it’s worse than a previously examined move. Such moves need not to be evaluated further.
 
 When added to a simple minimax algorithm, it gives the same output but cuts off certain branches that can’t possibly affect the final decision — dramatically improving the performance
-
-
 ## Program :
+```
+import time
+
+class Game:
+    def __init__(self):
+        self.initialize_game()
+
+    def initialize_game(self):
+        self.current_state = [['.','.','.'],
+                              ['.','.','.'],
+                              ['.','.','.']]
+
+        # Player X always plays first
+        self.player_turn = 'X'
+
+    def draw_board(self):
+        for i in range(0, 3):
+            for j in range(0, 3):
+                print('{}|'.format(self.current_state[i][j]), end=" ")
+            print()
+        print()
+    def is_valid(self, px, py):
+        if px < 0 or px > 2 or py < 0 or py > 2:
+            return False
+        elif self.current_state[px][py] != '.':
+            return False
+        else:
+            return True
+    def is_end(self):
+    # Vertical win
+        for i in range(0, 3):
+            if (self.current_state[0][i] != '.' and
+                self.current_state[0][i] == self.current_state[1][i] and
+                self.current_state[1][i] == self.current_state[2][i]):
+                return self.current_state[0][i]
+
+        # Horizontal win
+        for i in range(0, 3):
+            if (self.current_state[i] == ['X', 'X', 'X']):
+                return 'X'
+            elif (self.current_state[i] == ['O', 'O', 'O']):
+                return 'O'
+
+    # Main diagonal win
+        if (self.current_state[0][0] != '.' and
+            self.current_state[0][0] == self.current_state[1][1] and
+            self.current_state[0][0] == self.current_state[2][2]):
+            return self.current_state[0][0]
+
+    # Second diagonal win
+        if (self.current_state[0][2] != '.' and
+            self.current_state[0][2] == self.current_state[1][1] and
+            self.current_state[0][2] == self.current_state[2][0]):
+            return self.current_state[0][2]
+
+    # Is the whole board full?
+        for i in range(0, 3):
+            for j in range(0, 3):
+            # There's an empty field, we continue the game
+                if (self.current_state[i][j] == '.'):
+                    return None
+
+    # It's a tie!
+        return '.'
+    def max_alpha_beta(self, alpha, beta):
+        maxv = -2
+        px = None
+        py = None
+
+        result = self.is_end()
+
+        if result == 'X':
+            return (-1, 0, 0)
+        elif result == 'O':
+            return (1, 0, 0)
+        elif result == '.':
+            return (0, 0, 0)
+
+        for i in range(0, 3):
+            for j in range(0, 3):
+                if self.current_state[i][j] == '.':
+                    self.current_state[i][j] = 'O'
+                    (m, min_i, in_j) = self.min_alpha_beta(alpha, beta)
+                    if m > maxv:
+                        maxv = m
+                        px = i
+                        py = j
+                    self.current_state[i][j] = '.'
+
+                    # Next two ifs in Max and Min are the only difference between regular algorithm and minimax
+                    if maxv >= beta:
+                        return (maxv, px, py)
+
+                    if maxv > alpha:
+                        alpha = maxv
+
+        return (maxv, px, py)
+
+    def min_alpha_beta(self, alpha, beta):
+
+        minv = 2
+
+        qx = None
+        qy = None
+
+        result = self.is_end()
+
+        if result == 'X':
+            return (-1, 0, 0)
+        elif result == 'O':
+            return (1, 0, 0)
+        elif result == '.':
+            return (0, 0, 0)
+
+        for i in range(0, 3):
+            for j in range(0, 3):
+                if self.current_state[i][j] == '.':
+                    self.current_state[i][j] = 'X'
+                    (m, max_i, max_j) = self.max_alpha_beta(alpha, beta)
+                    if m < minv:
+                        minv = m
+                        qx = i
+                        qy = j
+                    self.current_state[i][j] = '.'
+
+                    if minv <= alpha:
+                        return (minv, qx, qy)
+
+                    if minv < beta:
+                        beta = minv
+
+        return (minv, qx, qy)
+    def play_alpha_beta(self):
+        while True:
+            self.draw_board()
+            self.result = self.is_end()
+
+            if self.result != None:
+                if self.result == 'X':
+                    print('The winner is X!')
+                elif self.result == 'O':
+                    print('The winner is O!')
+                elif self.result == '.':
+                    print("It's a tie!")
+
+
+                self.initialize_game()
+                return
+
+            if self.player_turn == 'X':
+
+                while True:
+                    start = time.time()
+                    (m, qx, qy) = self.min_alpha_beta(-2, 2)
+                    end = time.time()
+                    print('Evaluation time: {}s'.format(round(end - start, 7)))
+                    print('Recommended move: X = {}, Y = {}'.format(qx, qy))
+
+                    px = int(input('Insert the X coordinate: '))
+                    py = int(input('Insert the Y coordinate: '))
+
+                    qx = px
+                    qy = py
+
+                    if self.is_valid(px, py):
+                        self.current_state[px][py] = 'X'
+                        self.player_turn = 'O'
+                        break
+                    else:
+                        print('The move is not valid! Try again.')
+
+            else:
+                (m, px, py) = self.max_alpha_beta(-2, 2)
+                self.current_state[px][py] = 'O'
+                self.player_turn = 'X'
+def main():
+    g = Game()
+    g.play_alpha_beta()
+
+if __name__ == "__main__":
+    main()
+```
 ## Output :
+![a1](https://github.com/SOWMIYA2003/19AI405FUNDAMENTALSOFARTIFICIALINTELLIGENCE/assets/93427443/63df3aa2-582a-41ba-b9b4-2f743280fd17)
+
+![a2](https://github.com/SOWMIYA2003/19AI405FUNDAMENTALSOFARTIFICIALINTELLIGENCE/assets/93427443/1e09dd09-50c7-45c5-b7f8-fabf1e803aea)
+
 ## Result :
+Thus the Implementation of Alpha-beta pruning of Minimax Search Algorithm for a Simple TIC-TAC-TOE game is done successfully 
 
 # ExpNo 7 : Solve Cryptarithmetic Problem,a CSP(Constraint Satisfaction Problem) using Python
 ## Name : Sowmiya N
 ## Register No : 212221230106
-
 ## Aim:
-
 To solve Cryptarithmetic Problem,a CSP(Constraint Satisfaction Problem) using Python
 ## Procedure: 
-
 Input and Output
 Input: This algorithm will take three words.
 B A S E
@@ -764,8 +1140,38 @@ End
 
 ## Program :
 ```
+from itertools import permutations
+
+def solve_cryptarithmetic():
+    for perm in permutations(range(10), 8):
+        S, E, N, D, M, O, R, Y = perm
+
+        # Check for leading zeros
+        if S == 0 or M == 0:
+            continue
+
+        # Check the equation constraints
+        SEND = 1000 * S + 100 * E + 10 * N + D
+        MORE = 1000 * M + 100 * O + 10 * R + E
+        MONEY = 10000 * M + 1000 * O + 100 * N + 10 * E + Y
+
+        if SEND + MORE == MONEY:
+            return SEND, MORE, MONEY
+
+    return None
+
+solution = solve_cryptarithmetic()
+
+if solution:
+    SEND, MORE, MONEY = solution
+    print(f'SEND = {SEND}')
+    print(f'MORE = {MORE}')
+    print(f'MONEY = {MONEY}')
+else:
+    print("No solution found.")
 ```
 ## Output :
+![h](https://github.com/SOWMIYA2003/19AI405FUNDAMENTALSOFARTIFICIALINTELLIGENCE/assets/93427443/5f879f45-a43f-46ac-9aed-d6b831869339)
 
 ## Result:
 Thus a Cryptarithmetic Problem was solved using Python successfully
@@ -788,11 +1194,122 @@ This is a python program that uses propositional logic sentences to check which 
 It is assumed that there will always be a safe path that the agent can take to exit the Wumpus world. The logical agent can take four actions: Up, Down, Left and Right. These actions help the agent move from one room to an adjacent room. The agent can perceive two things: Breeze and Stench.
 ## Program :
 ```
+wumpus=[["Save","Breeze","PIT","Breeze"],
+        ["Smell","Save","Breeze","Save"],
+        ["WUMPUS","GOLD","PIT","Breeze"],
+        ["Smell","Save","Breeze","PIT"]]
+row=0
+column=0
+arrow=True
+player=True
+score=0
+while(player):
+    choice=input("press u to move up\npress d to move down\npress l to move left\npress r to move right\n")
+    if choice == "u":
+        if row != 0:
+            row-=1
+        else:
+            print("move denied")
+        
+        print("current location: ",wumpus[row][column],"\n")
+    elif choice == "d" :
+        if row!=3:
+            row+=1
+        else:
+            print("move denied")
+        
+        print("current location: ",wumpus[row][column],"\n")
+    elif choice == "l" :
+        if column!=0:
+            column-=1
+        else:
+            print("move denied")
+        
+        print("current location: ",wumpus[row][column],"\n")
+    elif choice == "r" :
+        if column!=3:
+            column+=1
+        else:
+            print("move denied")
+        
+        print("current location: ",wumpus[row][column],"\n")
+    else:
+        print("move denied")
+
+    if wumpus[row][column]=="Smell" and arrow != False:
+        arrow_choice=input("do you want to throw an arrow-->\npress y to throw\npress n to save your arrow\n")
+        if arrow_choice == "y":
+            arrow_throw=input("press u to throw up\npress d to throw down\npress l to throw left\npress r to throw right\n")
+            if arrow_throw == "u":
+                if wumpus[row-1][column] == "WUMPUS":
+                    print("wumpus killed!")
+                    score+=1000
+                    print("score: ",score)
+                    wumpus[row-1][column] = "Save"
+                    wumpus[1][0]="Save"
+                    wumpus[3][0]="Save"
+                else:
+                    print("arrow wasted...")
+                    score-=10
+                    print("score: ",score)
+            elif arrow_throw == "d":
+                if wumpus[row+1][column] == "WUMPUS":
+                    print("wumpus killed!")
+                    score+=1000
+                    print("score: ",score)
+                    wumpus[row+1][column] = "Save"
+                    wumpus[1][0]="Save"
+                    wumpus[3][0]="Save"
+                else:
+                    print("arrow wasted...")
+                    score-=10
+                    print("score: ",score)
+            elif arrow_throw == "l":
+                if wumpus[row][column-1] == "WUMPUS":
+                    print("wumpus killed!")
+                    score+=1000
+                    print("score: ",score)
+                    wumpus[row][column-1] = "Save"
+                    wumpus[1][0]="Save"
+                    wumpus[3][0]="Save"
+                else:
+                    print("arrow wasted...")
+                    score-=10
+                    print("score: ",score)
+            elif arrow_throw == "r":
+                if wumpus[row][column+1] == "WUMPUS":
+                    print("wumpus killed!")
+                    score+=1000
+                    print("score: ",score)
+                    wumpus[row][column+1] = "Save"
+                    wumpus[1][0]="Save"
+                    wumpus[3][0]="Save"
+                else:
+                    print("arrow wasted...")
+                    score-=10
+                    print("score: ",score)
+                
+            
+            arrow=False
+    if wumpus[row][column] == "WUMPUS" :
+        score-=1000
+        print("\nWumpus here!!\n You Die\nAnd your score is: ",score
+              ,"\n")
+        break
+    if(wumpus[row][column]=='GOLD'):
+        score+=1000
+        print("GOLD FOUND!You won....\nYour score is: ",score,"\n")
+        break
+    if(wumpus[row][column]=='PIT'):
+        score-=1000
+        print("Ahhhhh!!!!\nYou fell in pit.\nAnd your score is: ",score,"\n")
+        break
 ```
 ## Output :
+![s](https://github.com/SOWMIYA2003/19AI405FUNDAMENTALSOFARTIFICIALINTELLIGENCE/assets/93427443/e9500f41-ea13-4888-b8e5-e2c9ceb80544)
+
 ## Result :
-
-
+Thus the Wumpus World Problem is solved using Python demonstrating Inferences from Propositional Logic successfully. 
 
 
 
