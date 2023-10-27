@@ -13,34 +13,38 @@ To Implement Depth First Search Traversal of a Graph using Python 3.
 ## Theory:
 Depth First Traversal (or DFS) for a graph is like Depth First Traversal of a tree. The only catch here is that, unlike trees, graphs may contain cycles (a node may be visited twice). Use a Boolean visited array to avoid processing a node more than once. A graph can have more than one DFS traversal. Depth-first search is an algorithm for traversing or searching trees or graph data structures. The algorithm starts at the root node (selecting some arbitrary node as the root node in the case of a graph) and explores as far as possible along each branch before backtracking. Step 1: Initially, stack and visited arrays are empty. 
 
-![277147664-640b3c6f-3ac1-49a2-a955-68da9a71f446](https://github.com/SOWMIYA2003/ExpNo-1-Implement-Depth-First-Search-Traversal-of-a-Graph/assets/93427443/57367246-ee54-4319-b5fc-cc7b786b17cf)
+![1](https://github.com/SOWMIYA2003/19AI405FUNDAMENTALSOFARTIFICIALINTELLIGENCE/assets/93427443/ec36377a-fd59-440f-a1d8-0cf79166881c)
+
+
 
 Queue and visited arrays are empty initially. Stack and visited arrays are empty initially. Step 2: Visit 0 and put its adjacent nodes which are not visited yet into the stack. 
 
-![277147583-86dcf7d9-1f9d-49b0-a821-5976a6e77606](https://github.com/SOWMIYA2003/ExpNo-1-Implement-Depth-First-Search-Traversal-of-a-Graph/assets/93427443/cb8c6a82-6677-4ad4-87eb-04572122bb0c)
+![2](https://github.com/SOWMIYA2003/19AI405FUNDAMENTALSOFARTIFICIALINTELLIGENCE/assets/93427443/e0e00295-7ba2-4446-9157-265e4f17be84)
+
 
 Visit node 0 and put its adjacent nodes (1, 2, 3) into the stack Visit node 0 and put its adjacent nodes (1, 2, 3) into the stack
 
 Step 3: Now, Node 1 at the top of the stack, so visit node 1 and pop it from the stack and put all of its adjacent nodes which are not visited in the stack. 
 
-![277147597-e6017942-08b1-4742-87ad-c97eb97bf985](https://github.com/SOWMIYA2003/ExpNo-1-Implement-Depth-First-Search-Traversal-of-a-Graph/assets/93427443/70a9094b-66db-480f-8951-f865c9820745)
+![3](https://github.com/SOWMIYA2003/19AI405FUNDAMENTALSOFARTIFICIALINTELLIGENCE/assets/93427443/73256a0b-c786-4805-b1dd-6f14c66075ad)
+
 
 Visit node 1 Visit node 1
 
 Step 4: Now, Node 2 at the top of the stack, so visit node 2 and pop it from the stack and put all of its adjacent nodes which are not visited (i.e, 3, 4) in the stack. 
+![4](https://github.com/SOWMIYA2003/19AI405FUNDAMENTALSOFARTIFICIALINTELLIGENCE/assets/93427443/4d520ff1-f156-4657-bc95-dd2115f629b4)
 
-![277147603-6e6d123c-60ae-4f9c-a27c-c4fc7e57d57c](https://github.com/SOWMIYA2003/ExpNo-1-Implement-Depth-First-Search-Traversal-of-a-Graph/assets/93427443/04007a30-b42d-4c02-9bc7-a288add398ae)
 
 Visit node 2 and put its unvisited adjacent nodes (3, 4) into the stack Visit node 2 and put its unvisited adjacent nodes (3, 4) into the stack
 
 Step 5: Now, Node 4 at the top of the stack, so visit node 4 and pop it from the stack and put all of its adjacent nodes which are not visited in the stack. 
+![5](https://github.com/SOWMIYA2003/19AI405FUNDAMENTALSOFARTIFICIALINTELLIGENCE/assets/93427443/53da0a21-41b7-415a-9525-6abb61f128d9)
 
-![277147620-20b76a05-5668-4da5-8189-e10fb1bb7238](https://github.com/SOWMIYA2003/ExpNo-1-Implement-Depth-First-Search-Traversal-of-a-Graph/assets/93427443/a5135d93-8018-482b-a353-2bc7d771dcc2)
 
 Visit node 4 Visit node 4
 
 Step 6: Now, Node 3 at the top of the stack, so visit node 3 and pop it from the stack and put all of its adjacent nodes which are not visited in the stack. 
-![277147623-3b88f04a-7846-4f75-89b4-22bbd5b48e52](https://github.com/SOWMIYA2003/ExpNo-1-Implement-Depth-First-Search-Traversal-of-a-Graph/assets/93427443/3ab75fe2-ead7-4d08-8034-b173a538d2d0)
+![6](https://github.com/SOWMIYA2003/19AI405FUNDAMENTALSOFARTIFICIALINTELLIGENCE/assets/93427443/88de6fe9-9664-4d64-9649-984c3fbb4c9d)
 
 Visit node 3 Visit node 3
 
