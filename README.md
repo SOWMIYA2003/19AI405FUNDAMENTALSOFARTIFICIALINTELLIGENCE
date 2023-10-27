@@ -368,7 +368,7 @@ aStarAlgo('A', 'J')
 ```
 ## Output 1:
 
-
+![f](https://github.com/SOWMIYA2003/19AI405FUNDAMENTALSOFARTIFICIALINTELLIGENCE/assets/93427443/22e21e55-8948-4b50-bca4-2d1eb1a084c3)
 
 ## Sample Graph 2 :
 ![b](https://github.com/SOWMIYA2003/19AI405FUNDAMENTALSOFARTIFICIALINTELLIGENCE/assets/93427443/c8ab6f57-e07f-4f55-b419-836b2e8b76c2)
@@ -478,6 +478,7 @@ print(graph)
 aStarAlgo('A', 'G')
 ```
 ## Output 2:
+![U](https://github.com/SOWMIYA2003/19AI405FUNDAMENTALSOFARTIFICIALINTELLIGENCE/assets/93427443/3f675776-ac6d-4a7b-bda0-d2d9554cb21d)
 
 ## Result :
 Thus the implementation of A* Search algorithm is done successfully.
